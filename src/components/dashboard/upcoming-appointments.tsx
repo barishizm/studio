@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -5,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AlertTriangle, CalendarCheck2, Trash2, Video } from 'lucide-react';
+import { AlertTriangle, CalendarCheck2, Trash2, Video, Loader2 } from 'lucide-react'; // Import Loader2
 import { format } from 'date-fns';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
@@ -17,6 +18,8 @@ interface UpcomingAppointment extends Appointment {
   doctorName: string;
   specialty: string;
   isVirtual?: boolean; // Optional flag for virtual appointments
+  startDateTime: string; // Added for sorting/display
+  endDateTime: string;   // Added for display consistency
 }
 
 // Mock service function - replace with actual API call

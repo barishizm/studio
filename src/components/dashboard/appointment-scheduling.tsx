@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Clock, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton
 
 import type { Provider, TimeSlot, Appointment } from '@/services/appointment-scheduling';
 import { getProviders, getAvailableTimeSlots, scheduleAppointment } from '@/services/appointment-scheduling';
