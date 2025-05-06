@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -15,7 +14,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Stethoscope, LayoutDashboard, FileText, CalendarPlus, HeartPulse, Settings, LogOut } from 'lucide-react';
+import { Stethoscope, LayoutDashboard, FileText, CalendarPlus, HeartPulse, Settings, LogOut, LifeBuoy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -27,6 +26,7 @@ const menuItems = [
   { href: '/dashboard/appointments', label: 'Appointments', icon: CalendarPlus },
   { href: '/dashboard/emergency', label: 'Emergency Data', icon: HeartPulse, badge: 'Urgent' },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
+  { href: '/dashboard/support', label: 'Support', icon: LifeBuoy },
 ];
 
 export default function DashboardSidebar() {
@@ -104,4 +104,3 @@ export default function DashboardSidebar() {
     </>
   );
 }
-
