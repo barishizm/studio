@@ -1,10 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { LifeBuoy, MessageSquare, FileQuestion, Phone } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import SupportContactForm from '@/components/dashboard/support-contact-form'; // Import the new client component
 
 const faqItems = [
   {
@@ -44,27 +42,7 @@ export default function SupportPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="John Doe" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" placeholder="you@example.com" />
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" placeholder="e.g., Issue with appointment scheduling" />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" placeholder="Describe your issue or question in detail..." rows={5} />
-                </div>
-                <Button type="submit" className="w-full sm:w-auto">Send Message</Button>
-              </form>
+              <SupportContactForm /> {/* Use the client component here */}
             </CardContent>
           </Card>
         </div>
