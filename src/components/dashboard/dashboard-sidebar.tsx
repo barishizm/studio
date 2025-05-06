@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -44,9 +45,17 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      <SidebarHeader className="flex items-center gap-2 border-b">
-         <Stethoscope className="h-7 w-7 text-primary" />
-        <span className={cn("text-xl font-semibold", state === 'collapsed' && "hidden")}>HealthHub</span>
+      <SidebarHeader className="border-b p-0">
+        <Link href="/dashboard" passHref legacyBehavior>
+          <a
+            className="flex items-center gap-2 p-2 h-full hover:bg-sidebar-accent/50 transition-colors"
+            onClick={() => setOpenMobile(false)}
+            aria-label="Go to dashboard overview"
+          >
+            <Stethoscope className="h-7 w-7 text-primary" />
+            <span className={cn("text-xl font-semibold", state === 'collapsed' && "hidden")}>HealthHub</span>
+          </a>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent className="flex-1 overflow-y-auto">
