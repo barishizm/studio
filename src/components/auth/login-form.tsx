@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,7 +36,12 @@ async function authenticateUser(data: LoginFormValues): Promise<boolean> {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000));
   // Basic check - replace with real authentication
-  return data.email === "user@healthhub.com" && data.password === "password123";
+  const validCredentials = [
+    { email: "user@healthhub.com", password: "password123" },
+    { email: "mbakinti@outlook.com", password: "Mahmut2004" }
+  ];
+
+  return validCredentials.some(cred => cred.email === data.email && cred.password === data.password);
 }
 
 export default function LoginForm() {
@@ -85,7 +91,7 @@ export default function LoginForm() {
   }
 
   return (
-     <Card className="w-full max-w-md shadow-lg">
+     <Card className="w-full max-w-md shadow-lg bg-card text-card-foreground">
       <CardHeader className="items-center text-center">
          <div className="p-3 rounded-full bg-primary/10 border border-primary/20 mb-4">
             <Stethoscope className="h-8 w-8 text-primary" />
@@ -137,3 +143,4 @@ export default function LoginForm() {
     </Card>
   );
 }
+
