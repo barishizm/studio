@@ -80,4 +80,8 @@ export default function DashboardHeader() {
             <LogOut className="mr-2 h-4 w-4" />
             <span>Logout</span>
           </DropdownMenuItem>
-        </Dropdown
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </header>
+  );
+}
