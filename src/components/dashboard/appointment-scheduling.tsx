@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -12,13 +11,16 @@ import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Clock, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton
+import { Skeleton } from '@/components/ui/skeleton';
 
 import type { Provider, TimeSlot, Appointment } from '@/services/appointment-scheduling';
 import { getProviders, getAvailableTimeSlots, scheduleAppointment } from '@/services/appointment-scheduling';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 
-export default function AppointmentScheduling() {
+interface AppointmentSchedulingProps {
+  onAppointmentScheduled?: () => void; // Callback to notify parent
+}
+
+export default function AppointmentScheduling({ onAppointmentScheduled }: AppointmentSchedulingProps) {
   const [providers, setProviders] = useState<Provider[]>([]);
   const [selectedProviderId, setSelectedProviderId] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
@@ -76,7 +78,7 @@ export default function AppointmentScheduling() {
   }, [selectedProviderId, selectedDate]);
 
   const handleSchedule = async () => {
-    if (!selectedProviderId || !selectedTimeSlot) {
+    if (!selectedProviderId || !selectedDate || !selectedTimeSlot) {
       toast({
         title: "Missing Information",
         description: "Please select a provider, date, and time slot.",
@@ -89,27 +91,27 @@ export default function AppointmentScheduling() {
     setError(null);
 
     try {
+      const formattedDate = format(selectedDate, 'yyyy-MM-dd');
       const appointment = await scheduleAppointment(
         selectedProviderId,
+        formattedDate, // Pass the formatted date
         selectedTimeSlot.start,
         selectedTimeSlot.end
       );
 
       toast({
         title: "Appointment Scheduled!",
-        description: `Your appointment (ID: ${appointment.id}) is confirmed for ${selectedTimeSlot.start}.`,
-        variant: 'default', // Use 'default' for success (maps to green accent)
+        description: `Your appointment (ID: ${appointment.id}) is confirmed for ${format(selectedDate, 'PPP')} at ${selectedTimeSlot.start}.`,
+        variant: 'default', 
         action: <CheckCircle className="text-white"/>,
       });
 
-      // Reset form potentially or update UI
       setSelectedTimeSlot(null);
-       // Refetch time slots for the selected date as the booked one might be unavailable now
-      if (selectedDate) {
-         const formattedDate = format(selectedDate, 'yyyy-MM-dd');
-         const updatedTimeSlots = await getAvailableTimeSlots(selectedProviderId, formattedDate);
-         setTimeSlots(updatedTimeSlots);
-      }
+      // Refetch time slots for the selected date
+      const updatedTimeSlots = await getAvailableTimeSlots(selectedProviderId, formattedDate);
+      setTimeSlots(updatedTimeSlots);
+
+      onAppointmentScheduled?.(); // Notify parent component
 
     } catch (err) {
       console.error("Failed to schedule appointment:", err);
@@ -125,7 +127,6 @@ export default function AppointmentScheduling() {
     }
   };
 
-   const selectedProvider = providers.find(p => p.id === selectedProviderId);
 
   return (
     <div className="space-y-6">
@@ -197,7 +198,7 @@ export default function AppointmentScheduling() {
        {/* Time Slot Selection */}
       {selectedProviderId && selectedDate && (
         <div className="space-y-2">
-          <Label>Available Times</Label>
+          <Label>Available Times for {format(selectedDate, "PPP")}</Label>
            {loadingTimeSlots ? <Skeleton className="h-24 w-full" /> : (
              <RadioGroup
                 value={selectedTimeSlot ? `${selectedTimeSlot.start}-${selectedTimeSlot.end}` : ""}
@@ -220,7 +221,7 @@ export default function AppointmentScheduling() {
                 >
                     <RadioGroupItem value={`${slot.start}-${slot.end}`} id={`time-${slot.start}`} className="sr-only" />
                      <Clock className="mb-1 h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">{slot.start}</span>
+                    <span className="text-sm font-medium">{format(new Date(`1970-01-01T${slot.start}:00`), 'p')}</span>
                 </Label>
               )) : <p className="col-span-full text-center text-sm text-muted-foreground py-4">No available times for this date.</p>}
             </RadioGroup>

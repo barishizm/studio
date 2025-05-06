@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -6,53 +5,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AlertTriangle, CalendarCheck2, Trash2, Video, Loader2 } from 'lucide-react'; // Import Loader2
+import { AlertTriangle, CalendarCheck2, Trash2, Video, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
 
-// Assume a service function exists to get upcoming appointments
-// We'll use the existing scheduleAppointment response type and add doctor details
-// Ideally, you'd have a dedicated type and service function
-interface UpcomingAppointment extends Appointment {
-  doctorName: string;
-  specialty: string;
-  isVirtual?: boolean; // Optional flag for virtual appointments
-  startDateTime: string; // Added for sorting/display
-  endDateTime: string;   // Added for display consistency
-}
-
-// Mock service function - replace with actual API call
-async function getUpcomingAppointments(userId: string): Promise<UpcomingAppointment[]> {
-  console.log(`Fetching upcoming appointments for user ${userId}...`);
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  // Return mock data - in a real app, this comes from your backend
-  return [
-    { id: 'appt-1', providerId: '1', start: '14:00', end: '14:30', doctorName: 'Dr. Smith', specialty: 'Cardiologist', date: '2024-08-15', isVirtual: true },
-    { id: 'appt-2', providerId: '2', start: '10:30', end: '11:00', doctorName: 'Dr. Johnson', specialty: 'Dermatologist', date: '2024-08-20' },
-    { id: 'appt-3', providerId: '1', start: '09:00', end: '09:30', doctorName: 'Dr. Smith', specialty: 'Cardiologist', date: '2024-09-05' },
-  ].map(appt => ({ // Combine date and time for sorting/display
-      ...appt,
-      startDateTime: new Date(`${appt.date}T${appt.start}:00`).toISOString(), // Create sortable date
-      endDateTime: new Date(`${appt.date}T${appt.end}:00`).toISOString(),
-    }))
-    // Filter appointments that are in the future
-    .filter(appt => new Date(appt.startDateTime) > new Date())
-    // Sort by date ascending
-    .sort((a, b) => new Date(a.startDateTime).getTime() - new Date(b.startDateTime).getTime());
-
-}
-
-// Mock service function for cancellation
-async function cancelAppointment(appointmentId: string): Promise<boolean> {
-   console.log(`Cancelling appointment ${appointmentId}...`);
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  // Simulate success/failure (e.g., based on ID or randomly)
-  return !appointmentId.includes('fail'); // Example: fail if ID contains 'fail'
-}
-
+// Use the centrally defined UpcomingAppointment interface and service functions
+import type { UpcomingAppointment } from '@/services/appointment-scheduling';
+import { getUpcomingAppointments, cancelAppointment } from '@/services/appointment-scheduling';
 
 const MOCK_USER_ID = 'user123';
 
@@ -60,13 +20,9 @@ export default function UpcomingAppointments() {
   const [appointments, setAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
-
-   const fetchAppointments = async () => {
+  const fetchAppointments = async () => {
       setLoading(true);
       setError(null);
       try {
@@ -78,7 +34,11 @@ export default function UpcomingAppointments() {
       } finally {
         setLoading(false);
       }
-   }
+   };
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []); // Re-fetch if key prop changes (passed from parent)
 
    const handleCancel = async (appointmentId: string) => {
       setCancellingId(appointmentId);
