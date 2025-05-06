@@ -8,7 +8,45 @@ body {
 
 @layer base {
   :root {
-    /* HealthHub Theme - Light */
+    /* HealthHub Theme - Dark (Applied as default) */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 207 71% 53%; /* Calming Blue #3498db */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 145 63% 49%; /* Green #2ecc71 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 207 71% 53%; /* Primary color for focus rings */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
+
+    /* Sidebar Colors - Dark (Applied as default) */
+    --sidebar-background: 240 5.9% 10%; /* Dark background for sidebar */
+    --sidebar-foreground: 0 0% 95%; /* Lighter text for sidebar */
+    --sidebar-primary: 207 71% 53%; /* Use primary blue */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%; /* Darker accent for hover */
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 207 71% 53%;
+  }
+
+  .light { /* Kept for potential future theme switcher */
     --background: 0 0% 95%; /* Light Gray #f2f2f2 */
     --foreground: 0 0% 3.9%; /* Default Dark Text */
     --card: 0 0% 100%; /* White */
@@ -33,7 +71,6 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
 
     /* Sidebar Colors - Light */
     --sidebar-background: 0 0% 100%; /* White sidebar */
@@ -43,44 +80,6 @@ body {
     --sidebar-accent: 0 0% 95%; /* Light gray accent for hover */
     --sidebar-accent-foreground: 0 0% 9%;
     --sidebar-border: 0 0% 89.8%;
-    --sidebar-ring: 207 71% 53%;
-  }
-
-  .dark {
-    /* HealthHub Theme - Dark (Optional, using defaults for now) */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 207 71% 53%; /* Calming Blue #3498db */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 145 63% 49%; /* Green #2ecc71 */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 207 71% 53%; /* Primary color for focus rings */
-     --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-
-    /* Sidebar Colors - Dark */
-    --sidebar-background: 240 5.9% 10%; /* Dark background for sidebar */
-    --sidebar-foreground: 0 0% 95%; /* Lighter text for sidebar */
-    --sidebar-primary: 207 71% 53%; /* Use primary blue */
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%; /* Darker accent for hover */
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 207 71% 53%;
   }
 }
