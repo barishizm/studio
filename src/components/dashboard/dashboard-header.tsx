@@ -23,6 +23,10 @@ export default function DashboardHeader() {
     router.push('/dashboard/profile');
   }
 
+  const handleSettingsClick = () => {
+    router.push('/dashboard/settings');
+  }
+
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 lg:px-8 py-4">
       <SidebarTrigger className="sm:hidden" />
@@ -59,7 +63,7 @@ export default function DashboardHeader() {
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSettingsClick}>
              <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
           </DropdownMenuItem>

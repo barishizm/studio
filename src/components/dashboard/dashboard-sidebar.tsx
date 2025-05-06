@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -14,7 +15,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Stethoscope, LayoutDashboard, FileText, CalendarPlus, HeartPulse, LogOut } from 'lucide-react';
+import { Stethoscope, LayoutDashboard, FileText, CalendarPlus, HeartPulse, Settings, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -25,6 +26,7 @@ const menuItems = [
   { href: '/dashboard/records', label: 'Health Records', icon: FileText },
   { href: '/dashboard/appointments', label: 'Appointments', icon: CalendarPlus },
   { href: '/dashboard/emergency', label: 'Emergency Data', icon: HeartPulse, badge: 'Urgent' },
+  { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function DashboardSidebar() {
@@ -80,7 +82,7 @@ export default function DashboardSidebar() {
          {state === 'expanded' ? (
            <div className="flex items-center gap-3 p-2 rounded-md hover:bg-sidebar-accent transition-colors">
             <Avatar>
-              <AvatarImage src="https://picsum.photos/32/32" alt="User Avatar" />
+              <AvatarImage src="https://picsum.photos/32/32" alt="User Avatar" data-ai-hint="user avatar"/>
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
             <div className="flex flex-col text-sm">
@@ -102,3 +104,4 @@ export default function DashboardSidebar() {
     </>
   );
 }
+
